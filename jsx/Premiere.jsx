@@ -14,7 +14,10 @@ $._PPP = {
 	},
 
 	set_source_pos: function(pos){
-		app.enableQE();
+		// pos is in the format of seconds.frames (e.g. 10.5 is 10 seconds, 5 frames) or in timecode ('00;00;10;05')
+		// This might be a useful reference: https://forums.adobe.com/thread/2420603
+		
+		app.enableQE(); // enables the undocumented QE DOM which is necessary to control program monitor playback
 		qe.source.player.startScrubbing();
 		qe.source.player.scrubTo(String(pos));
 		qe.source.player.endScrubbing();
@@ -26,7 +29,7 @@ $._PPP = {
 			activeSequence.player.endScrubbing();
 
 			// Alternate
-			// app.project.activeSequence.setPlayerPosition(pos * 254016000000)
+			// app.project.activeSequence.setPlayerPosition(pos * 254016000000) // would not be able to use the same pos without parsing as this will assume its a float vs the seconds.frames format
 
 
 			// app.sourceMonitor.play(1.0)

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExtensionManifest Version="6.0" ExtensionBundleId="com.autoedit.it" ExtensionBundleVersion="1.0.0" ExtensionBundleName="autoEdit" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ExtensionList>
+		<Extension Id="com.autoedit.it" Version="1.0" />
 	</ExtensionList>
 	<ExecutionEnvironment>
 		<HostList>
