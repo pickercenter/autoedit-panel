@@ -8,7 +8,6 @@ _Screenshot of UI - optional_ -->
 Exploration of what it takes to make an Panel for Adobe Premiere, and the possibilites and limits of their API.
 
 
-
 ## Setup
 
 _stack - optional_
@@ -26,11 +25,10 @@ you can skip to [Debugging Unsigned Extensions](https://github.com/Adobe-CEP/CEP
 
 Launch Premiere Pro and open this Panel under Window > Extensions > autoEdit
 
-Official Adobe Sample Panel: https://github.com/Adobe-CEP/Samples/tree/master/PProPanel
-
-Semi Official API Docs: http://ppro.aenhancers.com/
-
-Non Official but very nice API Docs: http://www.brysonmichael.com/premiereapi-home
+### Adobe dev documentation
+- [Official Adobe Sample Panel](https://github.com/Adobe-CEP/Samples/tree/master/PProPanel)
+- [Semi Official API Docs](http://ppro.aenhancers.com/)
+- [Non Official but very nice API Docs](http://www.brysonmichael.com/premiereapi-home)
  
 
 ## Usage - development
@@ -55,7 +53,7 @@ _Coding style convention ref optional, eg which linter to use_
 _Linting, github pre-push hook - optional_
 
 
- 
+ You need to have recent version of Adobe Premiere on your system, see setup instructions above.
 
 ## Build
 
