@@ -36,6 +36,8 @@ For Mac you can run the local build script
 
 If you get permission issues run `chmod +x build.sh`.
 
+### 2. allow un-signed extension
+
 Since Premiere only accepts signed extension, [you should tell it to accept unsigned extensions like this as well](https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_8.x/Documentation/CEP%208.0%20HTML%20Extension%20Cookbook.md#debugging-unsigned-extensions)
 
 But you can skip to [Debugging Unsigned Extensions](https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_8.x/Documentation/CEP%208.0%20HTML%20Extension%20Cookbook.md#debugging-unsigned-extensions) and do the following terminal comand on a mac.
@@ -44,14 +46,13 @@ But you can skip to [Debugging Unsigned Extensions](https://github.com/Adobe-CEP
 defaults write com.adobe.CSXS.8 PlayerDebugMode 1
 ```
 
+### 3. open in premiere 
+
 Last but not Launch Premiere Pro and open this Panel under
 
 ```
 Window > Extensions > autoEdit
 ```
-
-
- 
 
 ## Usage - development
 
