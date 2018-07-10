@@ -1,5 +1,4 @@
-# Minimalistic-Adobe-Premiere-Pro-Panel
-
+# autoEdit Test Panel
 
 <!-- _One liner + link to confluence page_
 
@@ -28,7 +27,9 @@ you can skip to [Debugging Unsigned Extensions](https://github.com/Adobe-CEP/CEP
 Launch Premiere Pro and open this Panel under Window > Extensions > autoEdit
 
 Official Adobe Sample Panel: https://github.com/Adobe-CEP/Samples/tree/master/PProPanel
+
 Semi Official API Docs: http://ppro.aenhancers.com/
+
 Non Official but very nice API Docs: http://www.brysonmichael.com/premiereapi-home
  
 
@@ -36,6 +37,7 @@ Non Official but very nice API Docs: http://www.brysonmichael.com/premiereapi-ho
 
 
 The app is set up such that if you run [localhost:8099](http://localhost:8099) while the extension is open in Adobe Premiere you can access the chrome dev tools linked in.
+(need to refresh when extension is closed and reopened)
  
 
 ## System Architecture
@@ -51,6 +53,7 @@ _High level overview of system architecture_
 _Coding style convention ref optional, eg which linter to use_
 
 _Linting, github pre-push hook - optional_
+
 
  
 
