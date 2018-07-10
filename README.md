@@ -21,8 +21,9 @@ Download the code and put the folder in one of these places:
 Win: `C:\<username>\AppData\Roaming\Adobe\CEP\extensions`  
 Mac: `~/Library/Application Support/Adobe/CEP/extensions`  
 
-Since Premiere only accepts signed extension, you should tell it to accept unsigned extensions like this as well:
-https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_8.x/Documentation/CEP%208.0%20HTML%20Extension%20Cookbook.md#debugging-unsigned-extensions
+Since Premiere only accepts signed extension, [you should tell it to accept unsigned extensions like this as well](https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_8.x/Documentation/CEP%208.0%20HTML%20Extension%20Cookbook.md#debugging-unsigned-extensions)
+
+you can skip to [Debugging Unsigned Extensions](https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_8.x/Documentation/CEP%208.0%20HTML%20Extension%20Cookbook.md#debugging-unsigned-extensions) and do the terminal comand for mac.
 
 Launch Premiere Pro and open this Panel under Window > Extensions > autoEdit
 
@@ -31,8 +32,10 @@ Semi Official API Docs: http://ppro.aenhancers.com/
 Non Official but very nice API Docs: http://www.brysonmichael.com/premiereapi-home
  
 
-## Usage
+## Usage - development
 
+
+The app is set up such that if you run [localhost:8099](http://localhost:8099) while the extension is open in Adobe Premiere you can access the chrome dev tools linked in.
  
 
 ## System Architecture
