@@ -1,5 +1,4 @@
-# Minimalistic-Adobe-Premiere-Pro-Panel
-
+# autoEdit Test Panel
 
 <!-- _One liner + link to confluence page_
 
@@ -27,7 +26,9 @@ https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_8.x/Documentation/CEP
 Launch Premiere Pro and open this Panel under Window > Extensions > autoEdit
 
 Official Adobe Sample Panel: https://github.com/Adobe-CEP/Samples/tree/master/PProPanel
+
 Semi Official API Docs: http://ppro.aenhancers.com/
+
 Non Official but very nice API Docs: http://www.brysonmichael.com/premiereapi-home
  
 
@@ -48,6 +49,8 @@ _High level overview of system architecture_
 _Coding style convention ref optional, eg which linter to use_
 
 _Linting, github pre-push hook - optional_
+
+Open localhost:8099 to access Chrome Dev Tools while extension is running (need to refresh when extension is closed and reopened)
 
  
 
