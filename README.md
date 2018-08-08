@@ -42,9 +42,22 @@ Since Premiere only accepts signed extension, [you should tell it to accept unsi
 
 But you can skip to [Debugging Unsigned Extensions](https://github.com/Adobe-CEP/CEP-Resources/blob/master/CEP_8.x/Documentation/CEP%208.0%20HTML%20Extension%20Cookbook.md#debugging-unsigned-extensions) and do the following terminal comand on a mac.
 
+<!-- This command could be move to ./setup.sh
+potentially cover 5 to 8 
+eg 
+defaults write com.adobe.CSXS.5 PlayerDebugMode 1
+defaults write com.adobe.CSXS.6 PlayerDebugMode 1
+defaults write com.adobe.CSXS.7 PlayerDebugMode 1
+defaults write com.adobe.CSXS.8 PlayerDebugMode 1
+ -->
+
 ```
 defaults write com.adobe.CSXS.8 PlayerDebugMode 1
 ```
+
+You might need to re-start your computer 
+
+You can also use the handy `./setup.sh` script.
 
 ### 3. open in premiere 
 
@@ -80,6 +93,7 @@ _Linting, github pre-push hook - optional_ -->
 
 - You need to have recent version of Adobe Premiere on your system, see setup instructions above.
 - Chrome browser to view the dev tools for the app
+- [See here fore more details on JSX language](https://jsx.github.io/doc/tutorial.html) used to interact with Adobe Premiere API and [here](https://jsx.github.io/)
 
 ## Build
 
@@ -88,8 +102,8 @@ _How to run build_
 As mentioned in setup, you run this script to update the code
 
 ```
- ./build.sh
- ``` 
+./build.sh
+``` 
  
 
 ## Tests

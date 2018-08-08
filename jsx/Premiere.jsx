@@ -22,23 +22,28 @@ $._PPP = {
 		qe.source.player.scrubTo(String(pos));
 		qe.source.player.endScrubbing();
 
-		var activeSequence	= qe.project.getActiveSequence(); 	// note: make sure a sequence is active in PPro UI
-		if (activeSequence) {
-			activeSequence.player.startScrubbing();
-			activeSequence.player.scrubTo(String(pos));
-			activeSequence.player.endScrubbing();
 
-			// Alternate
-			// app.project.activeSequence.setPlayerPosition(pos * 254016000000) // would not be able to use the same pos without parsing as this will assume its a float vs the seconds.frames format
+		app.sourceMonitor.play(1.0)
+		// $.sleep(3000);
+		// app.sourceMonitor.closeClip();
+
+		// var activeSequence	= qe.project.getActiveSequence(); 	// note: make sure a sequence is active in PPro UI
+		// if (activeSequence) {
+		// 	activeSequence.player.startScrubbing();
+		// 	activeSequence.player.scrubTo(String(pos));
+		// 	activeSequence.player.endScrubbing();
+
+		// 	// Alternate
+		// 	// app.project.activeSequence.setPlayerPosition(pos * 254016000000) // would not be able to use the same pos without parsing as this will assume its a float vs the seconds.frames format
 
 
-			// app.sourceMonitor.play(1.0)
-			// $.sleep(3000);
-			// app.sourceMonitor.closeClip();
+		// 	// app.sourceMonitor.play(1.0)
+		// 	// $.sleep(3000);
+		// 	// app.sourceMonitor.closeClip();
 
-		} else {
-			$._PPP_.updateEventPanel("No active sequence.");
-		}
+		// } else {
+		// 	$._PPP_.updateEventPanel("No active sequence.");
+		// }
 		return "done"
 
 	},
