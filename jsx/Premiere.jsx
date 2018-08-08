@@ -25,6 +25,7 @@ $._PPP = {
 
 		app.sourceMonitor.play(1.0)
 		// $.sleep(3000);
+		// qe.source.player.endScrubbing();
 		// app.sourceMonitor.closeClip();
 
 		// var activeSequence	= qe.project.getActiveSequence(); 	// note: make sure a sequence is active in PPro UI
@@ -44,6 +45,9 @@ $._PPP = {
 		// } else {
 		// 	$._PPP_.updateEventPanel("No active sequence.");
 		// }
+
+		// user data path 
+		// alert(Folder.userData.fsName);
 		return "done"
 
 	},

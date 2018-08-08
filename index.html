@@ -22,12 +22,63 @@
 				window.__adobe_cep__.evalScript("$._PPP.create_sequence()", log);
 
 			}
-			function setSourcePos(){
-				let pos = '(' + document.getElementById("pos-input").value + ')'
-				window.__adobe_cep__.evalScript("$._PPP.set_source_pos"+pos, log);
+			function setSourcePos(pos){
+				// let pos = '(' + document.getElementById("pos-input").value + ')'
+				window.__adobe_cep__.evalScript(`$._PPP.set_source_pos(${pos})`, log);
 			}
 			function log(data){
 				console.log(data)
+			}
+
+			window.onload = function(){
+				document.getElementById('autoEditJsonInput').addEventListener('change', handleFileSelect);
+				document.getElementById('result').addEventListener('click', handleWordClick);
+			}
+			function handleFileSelect(evt){
+				var files = evt.target.files;
+				// console.log(e.target.files[0])
+				// var reader = new FileReader();
+				// var fileContent = reader.readAsText(e.target.files[0]);
+				// console.log(fileContent);
+
+				var reader = new FileReader();
+				// Closure to capture the file information.
+				reader.onload = (function(file) {
+				return function(e) {
+					// do something with the result
+					console.log(e.target.result)
+					displayTranscript(e.target.result);
+				};
+				})(files[0]);
+
+				// Read in the image file as a data URL.
+				reader.readAsText(files[0]);
+			}
+
+			function displayTranscript(transcript){
+				var transcript = JSON.parse(transcript);
+				window.transcript = transcript;
+				var result = "";
+				// to identify matching text 
+				// transcript.metadata.filePathName;
+				// transcript.metadata.fileName;
+				transcript.text.forEach((p)=>{
+					p.paragraph.forEach((l)=>{
+						l.line.forEach((w)=>{
+							result+=`<span class='words' data-start-time='${w.startTime}'>${w.text} </span>`;
+						})
+					})
+				})
+				
+				document.getElementById('result').innerHTML = result;
+			}
+
+			function handleWordClick(evt){
+				// setSourcePos(evt.target.data.)
+				console.log(evt.target.className);//check if is "words"
+				console.log(evt.target.dataset.startTime);
+				console.log(evt.target.dataset.text);
+				setSourcePos(evt.target.dataset.startTime);
 			}
 		</script>
 	</head>
@@ -41,5 +92,11 @@
 		<button onclick="traverse()">Get File Paths</button>
 		<button onclick="createSeq()">Create</button>
 		<div id="result"></div>
+		<hr>
+
+		<label for="avatar">Get autoEdit Json</label>
+        <input type="file"
+               id="autoEditJsonInput"  />
+			   
 	</body>
 </html>
