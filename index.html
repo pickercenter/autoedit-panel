@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>MyTest</title>
+		<link rel="stylesheet" href="./css/style.css">
 		<script type="text/javascript">
 			function traverse() {
 				window.__adobe_cep__.evalScript("$._PPP.traverse_project_items()", callback);
@@ -32,7 +33,7 @@
 
 			window.onload = function(){
 				document.getElementById('autoEditJsonInput').addEventListener('change', handleFileSelect);
-				document.getElementById('result').addEventListener('click', handleWordClick);
+				document.getElementById('transcription-text').addEventListener('click', handleWordClick);
 			}
 			function handleFileSelect(evt){
 				var files = evt.target.files;
@@ -70,7 +71,7 @@
 					})
 				})
 				
-				document.getElementById('result').innerHTML = result;
+				document.getElementById('transcription-text').innerHTML = result;
 			}
 
 			function handleWordClick(evt){
@@ -78,25 +79,45 @@
 				console.log(evt.target.className);//check if is "words"
 				console.log(evt.target.dataset.startTime);
 				console.log(evt.target.dataset.text);
-				setSourcePos(evt.target.dataset.startTime);
+				var frameTime = secondsToFrames(evt.target.dataset.startTime)
+				console.log("Word Time: "+ evt.target.dataset.startTime + ", Frame Time: " + frameTime)
+				setSourcePos(frameTime);
+			}
+
+			function secondsToFrames(time){
+				var buffer = 3 // amount of frames to jump before the start of the word to make it a little less abrupt
+				let fps = 25;
+				var base = Math.floor(time)
+				var fraction = time - base
+				var frames = Math.floor(fps * fraction) - buffer
+				if (frames < 1){
+					frames = fps + frames 
+					base -= 1; 
+				}
+				return String(base) + '.' + String(frames)
 			}
 		</script>
 	</head>
 
 	<body>
-		<a href="javascript:history.go(0)"> <button>Refresh panel</button> </a>
-		<hr>
-		<button onclick='setSourcePos()'>setSource</button>
-		<input type="text" id="pos-input"> </input>
-		<hr>
-		<button onclick="traverse()">Get File Paths</button>
-		<button onclick="createSeq()">Create</button>
-		<div id="result"></div>
-		<hr>
+		<div class="background-wrapper">
+			<a href="javascript:history.go(0)"> <button>Refresh panel</button> </a>
+			<hr>
+			<button onclick='setSourcePos()'>setSource</button>
+			<input type="text" id="pos-input"> </input>
+			<hr>
+			<button onclick="traverse()">Get File Paths</button>
+			<button onclick="createSeq()">Create Sequence</button>
+			<div id="result"></div>
+			<hr>
+			<div id="upload-form">
+				<label for="avatar">Get autoEdit Json</label>
+				<input type="file"
+						id="autoEditJsonInput"  />
+				<hr>
+				<div id="transcription-text"></div>
+			</div>
+		</div>
 
-		<label for="avatar">Get autoEdit Json</label>
-        <input type="file"
-               id="autoEditJsonInput"  />
-			   
 	</body>
 </html>
