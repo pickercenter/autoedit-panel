@@ -26,6 +26,11 @@ mark{
 	padding: 0;
 }
 
+.highlight{
+	padding: 0;
+	background: rgb(179, 179, 0);
+}
+
 button
 {
 	font-family: "LucidaGrande", sans-serif;

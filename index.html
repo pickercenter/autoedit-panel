@@ -53,6 +53,8 @@
 				var options = {
 					acrossElements: true,
 					separateWordSearch: false,
+					element: "span",
+					className: "highlight"
 				}
 
 				// Remove previous marked elements and mark
@@ -107,11 +109,21 @@
 
 			function handleWordClick(evt){
 				// setSourcePos(evt.target.data.)
+				var startTime
+
 				console.log(evt.target.className);//check if is "words"
-				console.log(evt.target.dataset.startTime);
-				console.log(evt.target.dataset.text);
-				var frameTime = secondsToFrames(evt.target.dataset.startTime)
-				console.log("Word Time: "+ evt.target.dataset.startTime + ", Frame Time: " + frameTime)
+				startTime = evt.target.dataset.startTime
+				
+				// Check if word is highlighted and get data from parent element if necessary
+				if( !evt.target.dataset.startTime ){
+					startTime = evt.target.parentElement.dataset.startTime
+				}
+
+				console.log(startTime);
+				
+				// Get converted time into secs.frames format
+				var frameTime = secondsToFrames(startTime) 
+				console.log("Word Time: "+ startTime + ", Frame Time: " + frameTime)
 				setSourcePos(frameTime);
 			}
 
