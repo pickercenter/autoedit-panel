@@ -28,7 +28,7 @@ mark{
 
 .highlight{
 	padding: 0;
-	background: rgb(179, 179, 0);
+	background: rgb(0, 58, 250);
 }
 
 button
@@ -69,5 +69,5 @@ input[type=text]
 }
 
 .words:hover{
-	background: rgb(0, 58, 250);
+	color: yellow;
 }
