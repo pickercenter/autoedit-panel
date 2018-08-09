@@ -4,7 +4,10 @@
 		<meta charset="utf-8">
 		<title>MyTest</title>
 		<link rel="stylesheet" href="./css/style.css">
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
 		<script type="text/javascript">
+			var markInstance
+
 			function traverse() {
 				window.__adobe_cep__.evalScript("$._PPP.traverse_project_items()", callback);
 			}
@@ -32,9 +35,35 @@
 			}
 
 			window.onload = function(){
+				var keywordInput = document.querySelector("input[name='keyword']");
+				markInstance = new Mark(document.querySelector(".context"));
+
 				document.getElementById('autoEditJsonInput').addEventListener('change', handleFileSelect);
 				document.getElementById('transcription-text').addEventListener('click', handleWordClick);
+				keywordInput.addEventListener("input", performMark);
+
 			}
+
+			function performMark() {
+
+				console.log("performing highlight")
+				// Read the keyword
+				var keyword = document.querySelector("input[name='keyword']").value;
+
+				var options = {
+					acrossElements: true,
+					separateWordSearch: false,
+				}
+
+				// Remove previous marked elements and mark
+				// the new keyword inside the context
+				markInstance.unmark({
+					done: function(){
+					markInstance.mark(keyword, options);
+				}
+				});
+			}
+
 			function handleFileSelect(evt){
 				var files = evt.target.files;
 				// console.log(e.target.files[0])
@@ -65,9 +94,11 @@
 				// transcript.metadata.fileName;
 				transcript.text.forEach((p)=>{
 					p.paragraph.forEach((l)=>{
+						result+='<p>'
 						l.line.forEach((w)=>{
 							result+=`<span class='words' data-start-time='${w.startTime}'>${w.text} </span>`;
 						})
+						result+='</p>'
 					})
 				})
 				
@@ -115,7 +146,10 @@
 				<input type="file"
 						id="autoEditJsonInput"  />
 				<hr>
-				<div id="transcription-text"></div>
+				<span>Type in a keyword to search:</span>
+				<input type="text" name="keyword" class="form-control input-sm" placeholder="Lorem ipsum...">
+				<hr>
+				<div id="transcription-text" class="context"></div>
 			</div>
 		</div>
 
