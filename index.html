@@ -124,7 +124,7 @@
 				// Get converted time into secs.frames format
 				var frameTime = secondsToFrames(startTime) 
 				console.log("Word Time: "+ startTime + ", Frame Time: " + frameTime)
-				setSourcePos(frameTime);
+				if (startTime) setSourcePos(frameTime);
 			}
 
 			function secondsToFrames(time){
