@@ -5,140 +5,8 @@
 		<title>MyTest</title>
 		<link rel="stylesheet" href="./css/style.css">
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
-		<script type="text/javascript">
-			var markInstance
-
-			function traverse() {
-				window.__adobe_cep__.evalScript("$._PPP.traverse_project_items()", callback);
-			}
-			function callback(data) {
-				if (!data || data.length < 0) return;
-				try {
-					var file_paths = JSON.parse(data);
-					console.log(file_paths);
-					document.getElementById("result").innerHTML = file_paths;
-				} catch(error) {
-					console.log(error);
-				}
-			}
-			function createSeq(){
-				console.log("Creating!")
-				window.__adobe_cep__.evalScript("$._PPP.create_sequence()", log);
-
-			}
-			function setSourcePos(pos){
-				// let pos = '(' + document.getElementById("pos-input").value + ')'
-				window.__adobe_cep__.evalScript(`$._PPP.set_source_pos(${pos})`, log);
-			}
-			function log(data){
-				console.log(data)
-			}
-
-			window.onload = function(){
-				var keywordInput = document.querySelector("input[name='keyword']");
-				markInstance = new Mark(document.querySelector(".context"));
-
-				document.getElementById('autoEditJsonInput').addEventListener('change', handleFileSelect);
-				document.getElementById('transcription-text').addEventListener('click', handleWordClick);
-				keywordInput.addEventListener("input", performMark);
-
-			}
-
-			function performMark() {
-
-				console.log("performing highlight")
-				// Read the keyword
-				var keyword = document.querySelector("input[name='keyword']").value;
-
-				var options = {
-					acrossElements: true,
-					separateWordSearch: false,
-					element: "span",
-					className: "highlight"
-				}
-
-				// Remove previous marked elements and mark
-				// the new keyword inside the context
-				markInstance.unmark({
-					done: function(){
-					markInstance.mark(keyword, options);
-				}
-				});
-			}
-
-			function handleFileSelect(evt){
-				var files = evt.target.files;
-				// console.log(e.target.files[0])
-				// var reader = new FileReader();
-				// var fileContent = reader.readAsText(e.target.files[0]);
-				// console.log(fileContent);
-
-				var reader = new FileReader();
-				// Closure to capture the file information.
-				reader.onload = (function(file) {
-				return function(e) {
-					// do something with the result
-					console.log(e.target.result)
-					displayTranscript(e.target.result);
-				};
-				})(files[0]);
-
-				// Read in the image file as a data URL.
-				reader.readAsText(files[0]);
-			}
-
-			function displayTranscript(transcript){
-				var transcript = JSON.parse(transcript);
-				window.transcript = transcript;
-				var result = "";
-				// to identify matching text 
-				// transcript.metadata.filePathName;
-				// transcript.metadata.fileName;
-				transcript.text.forEach((p)=>{
-					p.paragraph.forEach((l)=>{
-						result+='<p>'
-						l.line.forEach((w)=>{
-							result+=`<span class='words' data-start-time='${w.startTime}'>${w.text} </span>`;
-						})
-						result+='</p>'
-					})
-				})
-				
-				document.getElementById('transcription-text').innerHTML = result;
-			}
-
-			function handleWordClick(evt){
-				// setSourcePos(evt.target.data.)
-				var startTime
-
-				console.log(evt.target.className);//check if is "words"
-				startTime = evt.target.dataset.startTime
-				
-				// Check if word is highlighted and get data from parent element if necessary
-				if( !evt.target.dataset.startTime ){
-					startTime = evt.target.parentElement.dataset.startTime
-				}
-
-				console.log(startTime);
-				
-				// Get converted time into secs.frames format
-				var frameTime = secondsToFrames(startTime) 
-				console.log("Word Time: "+ startTime + ", Frame Time: " + frameTime)
-				if (startTime) setSourcePos(frameTime);
-			}
-
-			function secondsToFrames(time){
-				var buffer = 3 // amount of frames to jump before the start of the word to make it a little less abrupt
-				let fps = 25;
-				var base = Math.floor(time)
-				var fraction = time - base
-				var frames = Math.floor(fps * fraction) - buffer
-				if (frames < 1){
-					frames = fps + frames 
-					base -= 1; 
-				}
-				return String(base) + '.' + String(frames)
-			}
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.0.4/fuse.min.js"></script>
+		<script type="text/javascript" src="./js/main.js"></script>
 		</script>
 	</head>
 
@@ -159,7 +27,15 @@
 						id="autoEditJsonInput"  />
 				<hr>
 				<span>Type in a keyword to search:</span>
+				<br>
+				<span>Mark: </span>
 				<input type="text" name="keyword" class="form-control input-sm" placeholder="Lorem ipsum...">
+				<button onclick="performMark()">Search</button>
+				<br>
+				<span>Fuse: </span>
+				<input type="text" name="fuse-keyword" class="form-control input-sm" placeholder="Lorem ipsum...">
+				<button onclick="fuseSearch()">Search</button>
+				<button onclick="resetTrascript()">Reset</button>
 				<hr>
 				<div id="transcription-text" class="context"></div>
 			</div>
