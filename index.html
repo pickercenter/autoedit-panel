@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="./css/style.css">
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.0.4/fuse.min.js"></script>
+		<script type="text/javascript" src="https://rawgit.com/farzher/fuzzysort/master/fuzzysort.js"></script>
 		<script type="text/javascript" src="./js/main.js"></script>
 		</script>
 	</head>
@@ -35,6 +36,16 @@
 				<span>Fuse: </span>
 				<input type="text" name="fuse-keyword" class="form-control input-sm" placeholder="Lorem ipsum...">
 				<button onclick="fuseSearch()">Search</button>
+				<button onclick="resetTrascript()">Reset</button>
+				<br>
+				<span>FuzzySort: </span>
+				<input type="text" name="fuzzy-keyword" class="form-control input-sm" placeholder="Lorem ipsum...">
+				<button onclick="fuzzySearch()">Search</button>
+				<button onclick="resetTrascript()">Reset</button>
+				<br>
+				<span>Includes: </span>
+				<input type="text" name="includes-keyword" class="form-control input-sm" placeholder="Lorem ipsum...">
+				<button onclick="includesSearch()">Search</button>
 				<button onclick="resetTrascript()">Reset</button>
 				<hr>
 				<div id="transcription-text" class="context"></div>

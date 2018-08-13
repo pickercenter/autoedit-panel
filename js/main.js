@@ -1,5 +1,7 @@
 var markInstance
 
+const fuzzysort = cep_node.require('fuzzysort')
+
 function traverse() {
     window.__adobe_cep__.evalScript("$._PPP.traverse_project_items()", callback);
 }
@@ -92,10 +94,14 @@ function fuseSearch(){
     var options = {
         keys: ['paragraph.line.text'],
         threshold: 0.2,
+        tokenize: true,
         };
         var fuse = new Fuse(window.transcript.text, options)
         var keyword = document.querySelector("input[name='fuse-keyword']").value
         var searchOutput = fuse.search(keyword)
+
+
+        window.searchOutput = searchOutput
         
         console.log(searchOutput)
 
@@ -103,10 +109,57 @@ function fuseSearch(){
         
         document.getElementById('transcription-text').innerHTML = parsed;
         performMark(keyword)
+                            
+    }
 
-        // TODO: Refactor with promise so that we know when parsed text is done
-        setTimeout(function(){ 
-        }, 200)
+    function fuzzySearch(){
+        var keyword = document.querySelector("input[name='fuzzy-keyword']").value
+        var searchOutput = []
+
+        window.transcript.text.forEach((p)=>{
+            p.paragraph.forEach((l)=>{
+                if(l.string){
+                    var sorted = fuzzysort.single(keyword, l.string)
+                    if (sorted && sorted.score > -1500){
+                        searchOutput.push(p)
+                    }
+                }
+            })
+        })
+
+        window.searchOutput = searchOutput
+        
+        console.log(searchOutput)
+
+        var parsed = parseText(searchOutput)
+        
+        document.getElementById('transcription-text').innerHTML = parsed;
+        performMark(keyword)
+                            
+    }
+
+    function includesSearch(){
+        var keyword = document.querySelector("input[name='includes-keyword']").value
+        var searchOutput = []
+
+        window.transcript.text.forEach((p)=>{
+            p.paragraph.forEach((l)=>{
+                if(l.string){
+                    if (l.string.includes(keyword)){
+                        searchOutput.push(p)
+                    }
+                }
+            })
+        })
+
+        window.searchOutput = searchOutput
+        
+        console.log(searchOutput)
+
+        var parsed = parseText(searchOutput)
+        
+        document.getElementById('transcription-text').innerHTML = parsed;
+        performMark(keyword)
                             
     }
 
@@ -122,10 +175,18 @@ function handleFileSelect(evt){
     reader.onload = (function(file) {
     return function(e) {
         // do something with the result
-        console.log(e.target.result)
+        // console.log(e.target.result)
         var transcript = JSON.parse(e.target.result)
         window.transcript = transcript;
         displayTranscript(transcript);
+        window.transcript.text.forEach((p)=>{
+            p.paragraph.forEach((l)=>{
+                l.string = ""
+                l.line.forEach((w)=>{
+                    l.string+=`${w.text} `;
+                })
+            })
+        })
     };
     })(files[0]);
 
